@@ -92,9 +92,13 @@ class CourseList extends StatelessWidget {
                   child: FutureProvider(
                 create: (context) =>
                     Provider.of<QuizController>(context).fetchCourses(),
-                child: ListView.builder(
-                    itemCount: 4,
-                    itemBuilder: (context, index) => const CustomCourseTile()),
+                child: Consumer<QuizController>(
+                    builder: (BuildContext context, value, Widget? child) {
+                  return ListView.builder(
+                      itemCount: 4,
+                      itemBuilder: (context, index) =>
+                          const CustomCourseTile());
+                }),
                 initialData: const [],
               ))
             ],

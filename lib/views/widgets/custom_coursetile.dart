@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
 class CustomCourseTile extends StatelessWidget {
-  const CustomCourseTile({super.key});
-
+  const CustomCourseTile({required this.title, super.key});
+  final String title;
   @override
   Widget build(BuildContext context) {
-    final data= Provider
-    return const SizedBox(
+    return SizedBox(
       child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
         SizedBox(
             width: 70,
@@ -21,7 +20,7 @@ class CustomCourseTile extends StatelessWidget {
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: [Text('data')],
+            children: [Text(title)],
           ),
         )
       ]),
