@@ -31,9 +31,9 @@ To get started with this app, follow these steps:
 
 ## Screenshots
 
-![Screenshot 1](./assign0.png)
-![Screenshot 2](./assign1.png)
-![Screenshot 2](./assign2.png)
+![Screenshot 1](assign0.jpg)
+![Screenshot 2](assign1.jpg)
+![Screenshot 3](assign2.jpg)
 
 ## Installation
 
