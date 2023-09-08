@@ -1,4 +1,4 @@
-# LearnlyApp Edtech Quiz App
+# Light  Quiz App
 
 Welcome to the LearnlyApp Edtech Quiz App repository! This app is designed to allow users to take quizzes on Flutter and HTML topics. It provides a clean and responsive interface, with state management implemented using the Provider library.
 
