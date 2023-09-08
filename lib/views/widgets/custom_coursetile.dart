@@ -7,14 +7,14 @@ class CustomCourseTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        SizedBox(
+        const SizedBox(
             width: 70,
             height: 70,
             child: Card(
               color: Colors.red,
             )),
         Padding(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: 24.0,
             vertical: 4,
           ),

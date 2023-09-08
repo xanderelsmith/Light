@@ -96,8 +96,9 @@ class CourseList extends StatelessWidget {
                     builder: (BuildContext context, value, Widget? child) {
                   return ListView.builder(
                       itemCount: 4,
-                      itemBuilder: (context, index) =>
-                          const CustomCourseTile());
+                      itemBuilder: (context, index) => CustomCourseTile(
+                            title: value.questions[index].question,
+                          ));
                 }),
                 initialData: const [],
               ))
