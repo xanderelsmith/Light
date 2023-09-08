@@ -7,28 +7,27 @@ import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 import '../providers/courses.dart';
 
 class QuizController extends ChangeNotifier {
-  /// Internal, private state of the cart.
-  final List<Question> _items = [];
+  List<Question> get questions => [];
 
-  /// An unmodifiable view of the items in the cart.
-  UnmodifiableListView<Question> get questions => UnmodifiableListView(_items);
+  UnmodifiableListView<Question> get _items => UnmodifiableListView(questions);
 
   int get totalPrice => questions.length * 42;
-  Future<bool> fetchCourses() async {
+  void fetchCourses() async {
     List<ParseObject> data = await Courses.pullAllCourses();
-
+    print(data);
     List<Question> questions = data
         .map((e) => Question(
-            question: e['question'], correctanswer: e['correctanswer']))
+            option: e['options'] ?? [],
+            question: e['question'],
+            correctanswer: e['correct_answer']))
         .toList();
     addQuiz(questions);
     notifyListeners();
-    return data.isNotEmpty ? false : true;
   }
 
   void fetchQuizes() {}
   void addQuiz(List<Question> questions) {
-    _items.addAll(questions);
+    questions.addAll(_items);
     // This call tells the widgets that are listening to this model to rebuild.
     notifyListeners();
   }

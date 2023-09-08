@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:light/enums/quiztype_enum.dart';
- class Question  {
+
+class Question {
   final QuizType? quizType;
 
-  final dynamic question;
+  final String question;
+  final List option;
   final dynamic correctanswer;
-  const Question({
-    this.correctanswer,
-    Key? key,
-    this.quizType,
-    this.question,
-  });
-
+  const Question(
+      {this.correctanswer,
+      Key? key,
+      this.quizType,
+      required this.question,
+      required this.option});
 }

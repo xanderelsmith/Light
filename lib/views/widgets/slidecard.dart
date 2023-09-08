@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:light/controller/quizcontroller.dart';
 import 'package:light/utils/constants.dart';
 import 'package:light/views/screens/courselist.dart';
 
@@ -37,6 +38,7 @@ class SlideCardWidget extends StatelessWidget {
               ),
               ElevatedButton(
                   onPressed: () {
+                    QuizController().fetchCourses();
                     Navigator.push(
                         context,
                         MaterialPageRoute(
