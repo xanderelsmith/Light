@@ -21,9 +21,9 @@ class Constants {
   static const Color kdarkcontainerColor = Color(0xff191f25);
   static const Color kdarkbackgroundColor = Color(0xff353c44);
   static const Color kwhiteShade = Color(0xffffffff);
-  static const Color secondaryThemeColor = Color.fromRGBO(255, 144, 0, 1);
+  static const Color secondaryThemeColor = Color(0xff3D5CFF);
   static const Color primaryThemeColor = Color(0xff3D5CFF);
-  static const Color primaryThemeDarkColor = Color(0xfff6b71e);
+  static const Color primaryThemeDarkColor = Color(0xff3D5CFF);
   static const Color blueCard = Color(0xffCEECFE);
   static const String appname = 'Light';
 }

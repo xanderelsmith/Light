@@ -46,55 +46,57 @@ class Homepage extends StatelessWidget {
             )),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Column(children: [
-            SizedBox(
-              height: 200,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 2,
-                itemBuilder: (BuildContext context, int index) {
-                  return SlideCardWidget(
-                      imageLoc: kCardInfo[index].imageLoc,
-                      info: kCardInfo[index].info,
-                      screensize: screensize);
+          child: SingleChildScrollView(
+            child: Column(children: [
+              SizedBox(
+                height: 200,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 2,
+                  itemBuilder: (BuildContext context, int index) {
+                    return SlideCardWidget(
+                        imageLoc: kCardInfo[index].imageLoc,
+                        info: kCardInfo[index].info,
+                        screensize: screensize);
+                  },
+                ),
+              ),
+              const SizedBox(
+                height: 230,
+                width: double.maxFinite,
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Learning Plan',
+                        style: Constants.kminTextStyle,
+                      ),
+                      SizedBox(
+                          height: 200, child: LearningPlanSampleQuizDisplay())
+                    ]),
+              ),
+              InkWell(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                        title: Text(
+                            'Live-Class /Online meetup feature would roll-out in next version'),
+                        actions: [
+                          ElevatedButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text('Ok'))
+                        ]),
+                  );
                 },
-              ),
-            ),
-            const SizedBox(
-              height: 130,
-              width: double.maxFinite,
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Learning Plan',
-                      style: Constants.kminTextStyle,
-                    ),
-                    SizedBox(
-                        height: 100, child: LearningPlanSampleQuizDisplay())
-                  ]),
-            ),
-            InkWell(
-              onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                      title: Text(
-                          'Live-Class /Online meetup feature would roll-out in next version'),
-                      actions: [
-                        ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: Text('Ok'))
-                      ]),
-                );
-              },
-              child: MeetupCard(
-                screensize: screensize,
-              ),
-            )
-          ]),
+                child: MeetupCard(
+                  screensize: screensize,
+                ),
+              )
+            ]),
+          ),
         ));
   }
 }

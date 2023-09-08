@@ -5,12 +5,12 @@ class Question {
   final QuizType? quizType;
 
   final String question;
-  final List option;
+  final List options;
   final dynamic correctanswer;
   const Question(
       {this.correctanswer,
       Key? key,
       this.quizType,
       required this.question,
-      required this.option});
+      required this.options});
 }

@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:light/controller/quizcontroller.dart';
-import 'package:light/models/carddata.dart';
-import 'package:light/providers/courses.dart';
+import 'package:light/models/question.dart';
+import 'package:light/repository/retrievedQuizRepository.dart';
 import 'package:light/utils/constants.dart';
-import 'package:light/views/widgets/custom_coursetile.dart';
+import 'package:light/views/screens/quizscreen/multichoicequizscreen.dart';
+import 'package:light/views/widgets/custom_quiztile.dart';
 import 'package:light/views/widgets/optionstile.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 import 'package:provider/provider.dart';
 
-class CourseList extends StatelessWidget {
-  const CourseList({super.key});
+class QuizList extends StatelessWidget {
+  const QuizList({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final quizdata = Provider.of<QuizRepoNotifier>(context);
+    final quizlist = Provider.of<List<ParseObject>>(context);
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -22,7 +25,7 @@ class CourseList extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Courses',
+                  Text('Quizes',
                       style: Constants.kminTextStyle.copyWith(fontSize: 20)),
                   CircleAvatar(
                     child: Icon(
@@ -66,7 +69,7 @@ class CourseList extends StatelessWidget {
                   )),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 14.0),
-                child: Text('Choose your course',
+                child: Text('Take a quiz',
                     style: Constants.kminTextStyle.copyWith(
                       fontSize: 15,
                     )),
@@ -88,16 +91,29 @@ class CourseList extends StatelessWidget {
                               ),
                             ))),
               ),
-              Expanded(child: Consumer<QuizController>(
-                builder: (BuildContext context, QuizController value,
-                    Widget? child) {
-                  return ListView.builder(
-                      itemCount:  value.questions.length,
-                      itemBuilder: (context, index) => CustomCourseTile(
-                            title: value.questions[index].question,
-                          ));
-                },
-              ))
+              Expanded(
+                  child: ListView.builder(
+                      itemCount: quizlist.length,
+                      itemBuilder: (context, index) => InkWell(
+                            enableFeedback: true,
+                            onTap: () {
+                              List quizlist2 = quizlist[index]['quizes'];
+                              var pageController = PageController();
+                              quizdata.inputData(quizlist2);
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) {
+                                  print(quizlist[index]['quizes']);
+                                  return MultiChoiceQuizScreen(
+                                    pageController: pageController,
+                                    quizname: quizlist[index]['question'],
+                                  );
+                                },
+                              ));
+                            },
+                            child: CustomQuizTile(
+                              title: quizlist[index]['question'],
+                            ),
+                          )))
             ],
           ),
         ),
@@ -105,5 +121,3 @@ class CourseList extends StatelessWidget {
     );
   }
 }
-
-var quizController = QuizController();
