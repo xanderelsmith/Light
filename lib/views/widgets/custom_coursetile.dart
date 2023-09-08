@@ -5,6 +5,7 @@ class CustomCourseTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final data= Provider
     return const SizedBox(
       child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
         SizedBox(
