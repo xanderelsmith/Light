@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:light/views/dashboards/managementscreen.dart';
-
-import '../../enums/PagesEnum.dart';
-import '../../enums/dashboardEnum.dart';
-import '../homepage.dart';
 
 class HomeDashboard extends HookConsumerWidget {
   const HomeDashboard({
@@ -14,9 +9,7 @@ class HomeDashboard extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final studentList = ref.watch(addstudentlistProvider);
-
-    Size screensize = MediaQuery.of(context).size;
+    var scrollController = ScrollController();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -67,14 +60,18 @@ class HomeDashboard extends HookConsumerWidget {
                   child: SizedBox(
                     height: double.maxFinite,
                     width: double.maxFinite,
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        const QuestionAsset(),
-                        ...List.generate(
-                            3, (index) => QuestionAsset(index: index)),
-                      ]),
-                  
+                    child: Scrollbar(
+                      thumbVisibility: true,
+                      controller: scrollController,
+                      child: ListView(
+                          controller: scrollController,
+                          scrollDirection: Axis.horizontal,
+                          children: [
+                            const QuestionAsset(),
+                            ...List.generate(
+                                3, (index) => QuestionAsset(index: index)),
+                          ]),
+                    ),
                   ),
                 ),
               ),
@@ -108,21 +105,69 @@ class QuestionAsset extends StatelessWidget {
     return SizedBox(
         height: double.maxFinite,
         width: 125,
-        child: Card(
-          elevation: 5,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-            12,
-          )),
-          margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 5),
-          color: index != null ? Colors.grey[200] : Colors.grey,
-          child: Center(
-              child: index == null
-                  ? const Icon(
-                      Icons.add_circle_outline,
-                      size: 100,
-                    )
-                  : null),
+        child: InkWell(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const EditQuiz(),
+                ));
+          },
+          child: Card(
+            elevation: 5,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(
+              12,
+            )),
+            margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 5),
+            color: index != null ? Colors.grey[200] : Colors.grey,
+            child: Center(
+                child: index == null
+                    ? const Icon(
+                        Icons.add_circle_outline,
+                        size: 100,
+                      )
+                    : null),
+          ),
         ));
+  }
+}
+
+class EditQuiz extends StatelessWidget {
+  const EditQuiz({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(Icons.close)),
+            ],
+          ),
+          Expanded(
+            child: Row(children: [
+              Expanded(
+                  flex: 3,
+                  child: Container(
+                    color: Colors.amber,
+                  )),
+              Expanded(
+                child: Container(color: Colors.red),
+              )
+            ]),
+          )
+        ],
+      ),
+    );
   }
 }

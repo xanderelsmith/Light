@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import 'package:light/db_handler/db_services/api_services.dart';
-import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
-import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 import '../repository/studentrepository.dart';
 
@@ -14,19 +12,13 @@ class ViewStudentsScreen extends StatefulWidget {
   State<ViewStudentsScreen> createState() => _ViewStudentsScreenState();
 }
 
-final studentsListProvider = FutureProvider<List<ParseObject>>((ref) async {
-  final users = await ApiService.pullUsers();
-  return users;
-});
+
 
 class _ViewStudentsScreenState extends State<ViewStudentsScreen> {
-  List<Student> employees = <Student>[];
-  late EmployeeDataSource employeeDataSource;
+  
   @override
   void initState() {
     super.initState();
-    employees = [];
-    employeeDataSource = EmployeeDataSource(employeeData: employees);
   }
 
   @override

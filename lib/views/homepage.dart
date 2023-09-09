@@ -6,6 +6,7 @@ import 'package:light/enums/PagesEnum.dart';
 import 'package:light/notifiers/pagination_notifiers.dart';
 import 'package:light/views/dashboards/dashboard.dart';
 import 'package:light/views/notifications.dart';
+import 'package:light/views/subviews/homepage_third_tab.dart';
 import 'package:light/views/viewteachersdetails.dart';
 import 'package:light/views/viewstudents_detail_screen.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
@@ -45,7 +46,7 @@ class MainHomePage extends StatelessWidget {
         children: [
           Expanded(
               child: Padding(
-            padding: const EdgeInsets.fromLTRB(10.0, 0, 0, 20),
+            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 5),
             child: Consumer(
               builder: (context, ref, child) {
                 return StyledDrawer(
@@ -57,15 +58,18 @@ class MainHomePage extends StatelessWidget {
           )),
           Expanded(
               flex: 5,
-              child: ScreenReturn(
-                pagelocale: setPage,
-                dashboard: const HomeDashboard(),
-                management: const StatisticsScreen(),
-                students: const ViewStudentsScreen(),
-                teachers: const ViewTeachersScreen(),
-                schedule: const ScheduleScreen(),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: ScreenReturn(
+                  pagelocale: setPage,
+                  dashboard: const HomeDashboard(),
+                  management: const StatisticsScreen(),
+                  students: const ViewStudentsScreen(),
+                  teachers: const ViewTeachersScreen(),
+                  schedule: const ScheduleScreen(),
+                ),
               )),
-          Expanded(flex: 2, child: Container())
+          const Expanded(flex: 2, child: HomePageThirdTab())
         ],
       ),
     );
