@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:light/views/dashboards/managementscreen.dart';
+import 'package:light/views/subviews/edit_quiz_screen.dart';
+import 'package:light/views/subviews/homepage_courses-tab.dart';
+import 'package:light/views/widgets/tabbar.dart';
 
 class HomeDashboard extends HookConsumerWidget {
   const HomeDashboard({
@@ -22,13 +25,7 @@ class HomeDashboard extends HookConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 5),
-                      child: FittedBox(
-                          child: Text(
-                        'Students',
-                        style: TextStyle(fontSize: 12),
-                      ))),
+                  DesktopTabBarName(tabname: 'Students', onTap: () {}),
                   Expanded(
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -57,20 +54,30 @@ class HomeDashboard extends HookConsumerWidget {
             children: [
               Expanded(
                 child: Card(
-                  child: SizedBox(
-                    height: double.maxFinite,
-                    width: double.maxFinite,
-                    child: Scrollbar(
-                      thumbVisibility: true,
-                      controller: scrollController,
-                      child: ListView(
-                          controller: scrollController,
-                          scrollDirection: Axis.horizontal,
-                          children: [
-                            const QuestionAsset(),
-                            ...List.generate(
-                                3, (index) => QuestionAsset(index: index)),
-                          ]),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        const DesktopTabBarName(tabname: 'Recent Works'),
+                        Expanded(
+                          child: SizedBox(
+                            height: double.maxFinite,
+                            width: double.maxFinite,
+                            child: Scrollbar(
+                              thumbVisibility: true,
+                              controller: scrollController,
+                              child: ListView(
+                                  controller: scrollController,
+                                  scrollDirection: Axis.horizontal,
+                                  children: [
+                                    const QuestionAsset(),
+                                    ...List.generate(3,
+                                        (index) => QuestionAsset(index: index)),
+                                  ]),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -80,11 +87,13 @@ class HomeDashboard extends HookConsumerWidget {
                 child: Row(
                     children: List.generate(
                         2,
-                        (index) => Expanded(
-                              child: Card(
-                                child: Container(),
-                              ),
-                            ))),
+                        (index) => index == 0
+                            ? Expanded(
+                                child: Card(
+                                  child: Container(),
+                                ),
+                              )
+                            : const AllCourses())),
               )),
             ],
           ),
@@ -105,69 +114,31 @@ class QuestionAsset extends StatelessWidget {
     return SizedBox(
         height: double.maxFinite,
         width: 125,
-        child: InkWell(
-          onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const EditQuiz(),
-                ));
-          },
-          child: Card(
-            elevation: 5,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(
-              12,
-            )),
-            margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 5),
-            color: index != null ? Colors.grey[200] : Colors.grey,
+        child: Card(
+          elevation: 5,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+            12,
+          )),
+          margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 5),
+          color: index == null ? Colors.amberAccent[200] : Colors.grey,
+          child: InkWell(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const EditQuiz(),
+                  ));
+            },
             child: Center(
                 child: index == null
                     ? const Icon(
                         Icons.add_circle_outline,
                         size: 100,
+                        color: Colors.grey,
                       )
                     : null),
           ),
         ));
-  }
-}
-
-class EditQuiz extends StatelessWidget {
-  const EditQuiz({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(Icons.close)),
-            ],
-          ),
-          Expanded(
-            child: Row(children: [
-              Expanded(
-                  flex: 3,
-                  child: Container(
-                    color: Colors.amber,
-                  )),
-              Expanded(
-                child: Container(color: Colors.red),
-              )
-            ]),
-          )
-        ],
-      ),
-    );
   }
 }

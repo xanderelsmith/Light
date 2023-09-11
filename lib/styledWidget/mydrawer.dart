@@ -6,6 +6,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:light/db_handler/db_services/api_services.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:light/utils/constants.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 import '../db_handler/styles.dart';
 import '../enums/PagesEnum.dart';
@@ -26,7 +27,7 @@ class StyledDrawer extends HookConsumerWidget {
     return Drawer(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       backgroundColor: Colors.amber,
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
         Column(
           children: [
             const Padding(
@@ -58,12 +59,7 @@ class StyledDrawer extends HookConsumerWidget {
                                 fit: BoxFit.cover,
                                 imageUrl: user?['imageurl'] ?? '',
                                 errorWidget: (context, url, error) =>
-                                    Image.asset(
-                                  'images/boyavatar.png',
-                                  height: 100,
-                                  width: 100,
-                                  fit: BoxFit.cover,
-                                ),
+                                    Container(color: Colors.blue),
                                 placeholder: (context, url) => Center(
                                   child: SpinKitPulse(
                                     color: Styles.primaryThemeColor,
@@ -130,55 +126,63 @@ class StyledDrawer extends HookConsumerWidget {
         ),
         const Padding(
             padding: EdgeInsets.symmetric(horizontal: 8.0),
-            child: Text('Greater Grace Schools')),
+            child: Text(
+              Constants.appname,
+              textAlign: TextAlign.center,
+            )),
         Expanded(
+            flex: 3,
             child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: List.generate(
-              5,
-              (index) => Container(
-                    decoration: BoxDecoration(
-                        color: setPage == homePageEnum(index)
-                            ? Colors.white
-                            : Colors.transparent,
-                        borderRadius: const BorderRadius.horizontal(
-                            left: Radius.circular(5))),
-                    margin: const EdgeInsets.fromLTRB(10, 10, 0, 10),
-                    width: double.maxFinite,
-                    child: InkWell(
-                      enableFeedback: true,
-                      onTap: () {
-                        print(setPage);
-                        ref
-                            .read(pageNavProvider.notifier)
-                            .changevalue(homePageEnum(index));
-                      },
-                      child: Row(
-                        children: [
-                          FittedBox(
-                            child: TextButton.icon(
-                                style: TextButton.styleFrom(
-                                    enableFeedback: false,
-                                    primary: setPage == homePageEnum(index)
-                                        ? Colors.white
-                                        : Colors.transparent),
-                                onPressed: null,
-                                icon: Icon(
-                                  homePageEnum(index).iconData,
-                                  color: Colors.black,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: List.generate(
+                  4,
+                  (index) => Container(
+                        decoration: BoxDecoration(
+                            color: setPage == homePageEnum(index)
+                                ? Colors.white
+                                : Colors.transparent,
+                            borderRadius: BorderRadius.circular(5)),
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
+                        width: double.maxFinite,
+                        child: InkWell(
+                          enableFeedback: true,
+                          onTap: () {
+                            print(setPage);
+                            ref
+                                .read(pageNavProvider.notifier)
+                                .changevalue(homePageEnum(index));
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              FittedBox(
+                                child: TextButton(
+                                  onPressed: null,
+                                  child: Icon(
+                                    homePageEnum(index).iconData,
+                                    size: 30,
+                                    color: setPage == homePageEnum(index)
+                                        ? Constants.primaryColor
+                                        : Colors.white,
+                                  ),
                                 ),
-                                label: Text(
-                                  homePageEnum(index).value,
-                                  style: const TextStyle(
-                                      color: Colors.greenAccent),
-                                )),
+                              ),
+                              Text(
+                                homePageEnum(index).value,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: setPage == homePageEnum(index)
+                                      ? Constants.primaryColor
+                                      : Colors.white,
+                                ),
+                              )
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
-                  )),
-        )),
+                        ),
+                      )),
+            )),
+        Expanded(child: SizedBox())
       ]),
     );
   }

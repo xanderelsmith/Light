@@ -18,7 +18,7 @@ class MultiChoiceCreator extends ConsumerWidget {
   static TextEditingController incorrect3 = TextEditingController();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final questionListWatcher = ref.watch(createdQuizlistdataProvider.notifier);
+    // final questionListWatcher = ref.watch(createdQuizlistdataProvider.notifier);
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -87,15 +87,15 @@ class MultiChoiceCreator extends ConsumerWidget {
             padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
             child: ElevatedButton(
                 onPressed: () {
-                  ref.watch(createdQuizlistdataProvider);
-                  questionListWatcher.addQuiz(MultiChoice(
-                      correctanswer: correctanswerController.text.trim(),
-                      answers: [
-                        incorrect1.text,
-                        incorrect2.text.trim(),
-                        incorrect3.text.trim()
-                      ],
-                      question_: questionController.text.trim()));
+                  // ref.watch(createdQuizlistdataProvider);
+                  // questionListWatcher.addQuiz(MultiChoice(
+                  //     correctanswer: correctanswerController.text.trim(),
+                  //     answers: [
+                  //       incorrect1.text,
+                  //       incorrect2.text.trim(),
+                  //       incorrect3.text.trim()
+                  //     ],
+                  //     question_: questionController.text.trim()));
                 },
                 child: Text(
                   'Add Quiz',

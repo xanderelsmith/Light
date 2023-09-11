@@ -14,10 +14,13 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_spinkit: null
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
   hooks_riverpod: null
   intl: null
   parse_server_sdk_flutter: ^5.1.2
   printer: ^0.0.5
+  syncfusion_flutter_calendar: ^22.2.12
   table: ^0.0.1-dev
 
 dev_dependencies:

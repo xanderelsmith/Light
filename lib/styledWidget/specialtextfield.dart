@@ -38,6 +38,7 @@ class SpecialTextfield extends StatelessWidget {
       obscureText: ishidden ?? false,
       textCapitalization: textCapitalization ?? TextCapitalization.none,
       autocorrect: false,
+      maxLines: maxlines,
       enableSuggestions: enableSuggestion ?? false,
       decoration: InputDecoration(
         labelText: textfieldname,

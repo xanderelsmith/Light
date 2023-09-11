@@ -1,84 +1,126 @@
 import 'package:flutter/material.dart';
-
-import '../../db_handler/styles.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:light/models/quizmodels/created_quiz_viewer_ui/question_model.dart';
+import 'package:light/repository/created_quizdata_repository.dart';
+import 'package:light/utils/constants.dart';
+import 'package:light/views/createquizui/previewcreatedquizscreen.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 import '../../enums/quiztype_enum.dart';
-import '../../quizmodels/base_create_quiz_ui_data.dart';
+import 'package:flutter/services.dart';
 
-class MultiChoice extends QuizViewFormat {
+//a provider for watching createdListData
+final createdQuizlistdataProvider =
+    StateNotifierProvider<CreatedQuizRepository, List<Question>>(
+        (ref) => CreatedQuizRepository());
+
+//a provider for watching quiztype of quizcreationscree
+StateProvider<QuizType> quizTypeProvider = StateProvider<QuizType>((ref) {
+  return QuizType.multichoice;
+});
+
+class CreateQuizScreen extends ConsumerStatefulWidget {
+  const CreateQuizScreen({super.key, this.quizdata});
+  static String id = 'createquiz';
+  final ParseObject? quizdata;
   @override
-  QuizType? get quizType => QuizType.multichoice;
-  @override
-  get question => question_;
-  final String question_;
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _CreateQuizScreenState();
+}
 
-  final String? correctanswer;
-  final List<String> answers;
-  const MultiChoice({
-    Key? key,
-    required this.correctanswer,
-    required this.answers,
-    required this.question_,
-  }) : super(key: key);
+var externaljsondatatextEditingController = TextEditingController();
 
+class _CreateQuizScreenState extends ConsumerState<CreateQuizScreen> {
   @override
   Widget build(BuildContext context) {
-    List sortedAnswer = List.generate(answers.length, (index) => answers[index])
-      ..add(correctanswer)
-      ..shuffle();
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 15.0),
-          child: Text(question),
-        ),
-        Expanded(
-          child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-            decoration: BoxDecoration(
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(10)),
-              gradient: RadialGradient(
-                  colors: [Theme.of(context).canvasColor, Colors.blueAccent]),
-            ),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+    Size screensize = MediaQuery.of(context).size;
+    return Scaffold(
+      appBar: AppBar(
+          actions: [
+            IconButton(
+                icon: const Icon(Icons.smart_toy_outlined), onPressed: () {})
+          ],
+          centerTitle: true,
+          title: const Text('Create your own quiz'),
+          leading: IconButton(
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                },
+                                child: const Text('Yes')),
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text('No'))
+                          ],
+                          title: const Text('Are you sure you want to cancel '),
+                        ));
+              },
+              icon: const Icon(Icons.chevron_left))),
+      body: Container(
+        decoration: const BoxDecoration(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(10))),
+        child: Column(children: [
+          Card(
+            elevation: 0,
+            color: Theme.of(context).canvasColor.withOpacity(0.5),
+            child: FittedBox(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(
-                  sortedAnswer.length,
-                  (index) => Container(
-                    margin: const EdgeInsets.symmetric(
-                      vertical: 5,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
-                      color: correctanswer == sortedAnswer[index]
-                          ? Styles.primaryThemeColor
-                          : Colors.transparent,
-                    ),
-                    child: FittedBox(
-                      child: Row(
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 5.0),
-                            child: FittedBox(
-                                child: Icon(Icons.radio_button_checked)),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: FittedBox(
-                              child: Text(
-                                sortedAnswer[index],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                )),
+                    3,
+                    (index) => GestureDetector(
+                          onTap: () {
+                            // ref.watch(quizTypeProvider.notifier).state =
+                            //     quizTypeChecker(index);
+                          },
+                          child: Card(
+                              // color: ref.watch(quizTypeProvider) ==
+                              //         quizTypeChecker(index)
+                              //     ? Styles.primaryThemeColor
+                              //     : Colors.transparent,
+                              child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(index == 0
+                                ? 'MultiChoice'
+                                : index == 1
+                                    ? 'shortTextAnswer'
+                                    : 'Drag and Drop'),
+                          )),
+                        )),
+              ),
+            ),
           ),
-        ),
-      ],
+          Padding(
+              padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+              child: ElevatedButton.icon(
+                icon: const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text('Validate:'),
+                ),
+                style: ElevatedButton.styleFrom(
+                  elevation: 20,
+                  backgroundColor: Constants.primaryColor,
+                  shadowColor: Theme.of(context).canvasColor.withOpacity(0.3),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => PreviewQuizScreen(
+                                quizdata: widget.quizdata,
+                              )));
+                },
+                label: Text('${ref.watch(createdQuizlistdataProvider).length}'),
+              )),
+        ]),
+      ),
     );
   }
 }
