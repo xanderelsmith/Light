@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:light/db_handler/styles.dart';
+import 'package:light/services/styles.dart';
 
 class QuizImageEditor extends StatefulWidget {
   const QuizImageEditor({

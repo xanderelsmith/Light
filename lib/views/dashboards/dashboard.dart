@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:light/views/dashboards/managementscreen.dart';
-import 'package:light/views/subviews/edit_quiz_screen.dart';
-import 'package:light/views/subviews/homepage_courses-tab.dart';
+import 'package:light/utils/utils.dart';
+import 'package:light/views/subviews/homepage_assessment_tab.dart';
 import 'package:light/views/widgets/tabbar.dart';
+
+import '../widgets/course_asset.dart';
 
 class HomeDashboard extends HookConsumerWidget {
   const HomeDashboard({
@@ -70,9 +71,15 @@ class HomeDashboard extends HookConsumerWidget {
                                   controller: scrollController,
                                   scrollDirection: Axis.horizontal,
                                   children: [
-                                    const QuestionAsset(),
-                                    ...List.generate(3,
-                                        (index) => QuestionAsset(index: index)),
+                                    const CourseAsset(color: Colors.amber),
+                                    ...List.generate(
+                                        100,
+                                        (index) => CourseAsset(
+                                              index: index,
+                                              color: Colors.accents[
+                                                  index.remainder(
+                                                      Colors.accents.length)],
+                                            )),
                                   ]),
                             ),
                           ),
@@ -82,63 +89,11 @@ class HomeDashboard extends HookConsumerWidget {
                   ),
                 ),
               ),
-              Expanded(
-                  child: SizedBox(
-                child: Row(
-                    children: List.generate(
-                        2,
-                        (index) => index == 0
-                            ? Expanded(
-                                child: Card(
-                                  child: Container(),
-                                ),
-                              )
-                            : const AllCourses())),
-              )),
+              const Expanded(child: HomeAssessmentTab()),
             ],
           ),
         ),
       ],
     );
-  }
-}
-
-class QuestionAsset extends StatelessWidget {
-  const QuestionAsset({
-    super.key,
-    this.index,
-  });
-  final int? index;
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-        height: double.maxFinite,
-        width: 125,
-        child: Card(
-          elevation: 5,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-            12,
-          )),
-          margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 5),
-          color: index == null ? Colors.amberAccent[200] : Colors.grey,
-          child: InkWell(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const EditQuiz(),
-                  ));
-            },
-            child: Center(
-                child: index == null
-                    ? const Icon(
-                        Icons.add_circle_outline,
-                        size: 100,
-                        color: Colors.grey,
-                      )
-                    : null),
-          ),
-        ));
   }
 }

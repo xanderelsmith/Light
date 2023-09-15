@@ -9,8 +9,8 @@ import 'package:light/views/authenticate/Desktop_login_signup.dart';
 import 'package:light/views/homepage.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
-import '../../db_handler/db_services/api_services.dart';
-import '../../db_handler/styles.dart';
+import '../../services/db_services/api_services.dart';
+import '../../services/styles.dart';
 
 class SignUp extends ConsumerWidget {
   SignUp({Key? key, required this.screensize}) : super(key: key);

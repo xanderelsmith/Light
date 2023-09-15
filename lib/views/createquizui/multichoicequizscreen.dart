@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:light/views/createquizui/createquizscreen.dart';
-import 'package:light/views/createquizui/multichoicequizviewer.dart';
 
-import '../../db_handler/styles.dart';
+import '../../services/styles.dart';
 import '../../styledWidget/specialtextfield.dart';
 
 class MultiChoiceCreator extends ConsumerWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../views/viewstudents_detail_screen.dart';
+import '../views/resource_inventory.dart';
 
 class StudentRepository extends StateNotifier<List<Student>> {
   StudentRepository() : super([]);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../db_handler/db_services/api_services.dart';
-import '../../db_handler/styles.dart';
+import '../../services/db_services/api_services.dart';
+import '../../services/styles.dart';
 
 class ResetPassword extends HookConsumerWidget {
   static String id = 'ResetPassword';

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:light/db_handler/styles.dart';
+import 'package:light/services/styles.dart';
 import 'package:light/enums/quiztype_enum.dart';
+import 'package:light/views/subviews/edit_quiz_screen.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
-import 'createquizscreen.dart';
 
 StateProvider<String?> facultyProvider = StateProvider<String?>((ref) {
   return null;

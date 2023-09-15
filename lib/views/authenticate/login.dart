@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:light/views/authenticate/reset_password.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
-import '../../db_handler/db_services/api_services.dart';
-import '../../db_handler/styles.dart';
+import '../../services/db_services/api_services.dart';
+import '../../services/styles.dart';
 import '../../styledWidget/specialtextfield.dart';
 
 import '../homepage.dart';

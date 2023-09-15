@@ -10,7 +10,7 @@ class ScheduleScreen extends StatelessWidget {
           onPressed: () {},
           tooltip: 'Your students will see all notifications added here',
           icon: Icon(Icons.notification_add_outlined),
-          label: Text('Add a schedule')),
+          label: Text('Add a notification')),
       body: Row(children: [
         Expanded(
           flex: 2,

@@ -6,8 +6,8 @@ import 'package:light/styledWidget/calenderSideScreen.dart';
 import 'package:light/views/dashboards/dashboard.dart';
 import 'package:light/views/notifications.dart';
 import 'package:light/views/viewteachersdetails.dart';
-import 'package:light/views/viewstudents_detail_screen.dart';
-import '../styledWidget/mydrawer.dart';
+import 'package:light/views/resource_inventory.dart';
+import '../styledWidget/drawer.dart';
 import '../utils/navigationutil.dart';
 import 'dashboards/managementscreen.dart';
 
@@ -43,20 +43,17 @@ class MainHomePage extends StatelessWidget {
           Visibility(
               visible: screensize.width > 500,
               child: screensize.width > 500
-                  ? Expanded(
+                  ? SizedBox(
+                      width: 200,
                       child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 4, horizontal: 5),
-                      child: Consumer(
-                        builder: (context, ref, child) {
-                          return StyledDrawer(
-                            setPage: setPage,
-                            user: null,
-                          );
-                        },
-                      ),
-                    ))
-                  : SizedBox()),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 4, horizontal: 5),
+                        child: StyledDrawer(
+                          setPage: setPage,
+                          user: null,
+                        ),
+                      ))
+                  : const SizedBox()),
           Expanded(
               flex: 5,
               child: Padding(
@@ -64,17 +61,12 @@ class MainHomePage extends StatelessWidget {
                 child: ScreenReturn(
                   pagelocale: setPage,
                   dashboard: const HomeDashboard(),
-                  management: const StatisticsScreen(),
-                  students: const ViewStudentsScreen(),
-                  teachers: const ViewTeachersScreen(),
-                  schedule: const ScheduleScreen(),
+                  management: const WardsManagerScreen(),
+                  courseresources: const ResourceInventory(),
+                  notification: const ScheduleScreen(),
                 ),
               )),
-          Visibility(
-              visible: screensize.width > 900,
-              child: screensize.width > 900
-                  ? Expanded(flex: 2, child: CalenderColumn())
-                  : SizedBox())
+          const SizedBox(width: 300, child: CalenderColumn())
         ],
       ),
     );

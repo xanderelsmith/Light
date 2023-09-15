@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 enum PageLocale {
   dashboard('Dashboard', Icons.home_filled),
-  schedule('Schedule', Icons.calendar_today_outlined),
+  notification('Notifications', Icons.calendar_today_outlined),
   students('Courses', Icons.book),
 
   management('Management', Icons.bar_chart_outlined);
@@ -19,5 +19,5 @@ PageLocale homePageEnum(index) {
           ? PageLocale.management
           : index == 2
               ? PageLocale.students
-              : PageLocale.schedule;
+              : PageLocale.notification;
 }

@@ -6,7 +6,7 @@ class SpecialTextfield extends StatelessWidget {
 
   final TextInputType? textInputtype;
   final Widget? suffixwidget;
-  final Function? onChanged;
+  final Function(String)? onChanged;
   final TextCapitalization? textCapitalization;
   const SpecialTextfield({
     Key? key,
@@ -19,11 +19,15 @@ class SpecialTextfield extends StatelessWidget {
     this.textInputtype,
     this.textfieldname,
     this.enableSuggestion,
+    this.isMultiline,
     this.innerHint,
+    this.decoration,
   }) : super(key: key);
   final bool? ishidden;
+  final InputDecoration? decoration;
   final bool? enableSuggestion;
   final TextEditingController? controller;
+  final bool? isMultiline;
   final int? maxlines;
   @override
   Widget build(BuildContext context) {
@@ -40,15 +44,16 @@ class SpecialTextfield extends StatelessWidget {
       autocorrect: false,
       maxLines: maxlines,
       enableSuggestions: enableSuggestion ?? false,
-      decoration: InputDecoration(
-        labelText: textfieldname,
-        hintStyle: const TextStyle(fontWeight: FontWeight.w300),
-        hintText: innerHint,
-        filled: true,
-        suffixIcon: suffixwidget,
-        border: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.black)),
-      ),
+      decoration: decoration ??
+          InputDecoration(
+            labelText: textfieldname,
+            hintStyle: const TextStyle(fontWeight: FontWeight.w300),
+            hintText: innerHint,
+            filled: true,
+            suffixIcon: suffixwidget,
+            border: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.black)),
+          ),
     );
   }
 }

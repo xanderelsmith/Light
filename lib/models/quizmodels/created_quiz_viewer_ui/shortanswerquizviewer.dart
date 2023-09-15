@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:light/db_handler/styles.dart';
+import 'package:light/services/styles.dart';
 import 'package:light/utils/quiz_image_editor.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 

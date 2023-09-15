@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:light/db_handler/styles.dart';
+import 'package:light/services/styles.dart';
 
 import '../../../../enums/quiztype_enum.dart';
 import 'question_model.dart';
