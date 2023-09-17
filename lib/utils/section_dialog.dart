@@ -4,7 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:light/models/section/sectionmodel.dart';
 import 'package:light/repository/section/local_sections_storage_repo.dart';
-import 'package:light/services/db_services/hivedb_functions.dart';
+import 'package:light/services/storage/hivedb_functions.dart';
 import 'package:light/styledWidget/specialtextfield.dart';
 import 'package:light/utils/constants.dart';
 import 'package:light/views/widgets/dualbutton_option.dart';

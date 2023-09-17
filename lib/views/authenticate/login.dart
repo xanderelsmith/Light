@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:light/views/authenticate/reset_password.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
-import '../../services/db_services/api_services.dart';
+import '../../services/auth.dart';
 import '../../services/styles.dart';
 import '../../styledWidget/specialtextfield.dart';
 
@@ -112,7 +112,7 @@ class _LogInState extends State<LogIn> {
                                     builder: (context) {
                                       bool isSuccessful = false;
                                       return FutureBuilder(
-                                        future: ApiService.doUserLogin(
+                                        future: Authentication.doUserLogin(
                                           username: controllerUsername.text,
                                           password: controllerPassword.text,
                                         ),

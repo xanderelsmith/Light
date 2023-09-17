@@ -9,7 +9,7 @@ import 'package:light/views/authenticate/Desktop_login_signup.dart';
 import 'package:light/views/homepage.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 
-import '../../services/db_services/api_services.dart';
+import '../../services/auth.dart';
 import '../../services/styles.dart';
 
 class SignUp extends ConsumerWidget {
@@ -278,8 +278,7 @@ class SignUp extends ConsumerWidget {
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 fixedSize: const Size(20, 50)),
-                            onPressed: () async
-                             {
+                            onPressed: () async {
                               if (controllerEmail.text.isNotEmpty &&
                                   controllerUsername.text.isNotEmpty &&
                                   controllerPassword.text.isNotEmpty &&
@@ -289,7 +288,7 @@ class SignUp extends ConsumerWidget {
                                     builder: (context) {
                                       bool isSuccessful = false;
                                       return FutureBuilder(
-                                        future: ApiService.doUsersignUp(
+                                        future: Authentication.doUsersignUp(
                                           username: controllerUsername.text,
                                           password: controllerPassword.text,
                                           emailadress: controllerEmail.text,

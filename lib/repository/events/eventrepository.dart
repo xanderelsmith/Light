@@ -2,7 +2,7 @@
 import 'dart:developer';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:light/models/calendermodels/event_data_model.dart';
-import 'package:light/services/db_services/hivedb_functions.dart';
+import 'package:light/services/storage/hivedb_functions.dart';
 import 'package:light/utils/utils.dart';
 
 class EventCalenderRepository extends StateNotifier<List<EventData>> {
@@ -17,7 +17,7 @@ class EventCalenderRepository extends StateNotifier<List<EventData>> {
         .map((e) =>
             EventData(date: e['date'], info: e['info'], title: e['title']))
         .toList();
-    dateSorter(state);
+    eventDateSorter(state);
     log(state.length.toString());
   }
 
@@ -26,10 +26,10 @@ class EventCalenderRepository extends StateNotifier<List<EventData>> {
   }
 
   void assign(List<EventData> data) {
-    data.forEach((element) {
+    for (var element in data) {
       log(element.toJson().toString());
-    });
-    dateSorter(data);
+    }
+    eventDateSorter(data);
     state = [...data];
   }
 
@@ -38,13 +38,29 @@ class EventCalenderRepository extends StateNotifier<List<EventData>> {
     detailsListValue.removeAt(index);
     state = [...detailsListValue];
     state.sort((a, b) => a.date.month.compareTo(b.date.month));
-    removeToHiveDbData(index: index, modelHiveData: eventsHiveData);
-    dateSorter(state);
+    removeToHiveDbData(index: index, hiveData: eventsHiveData);
+    eventDateSorter(state);
     log(state.length.toString());
   }
 }
 
 final eventsProvider =
-    StateNotifierProvider<EventCalenderRepository, List<EventData>>((ref) {
+    StateNotifierProvider.autoDispose<EventCalenderRepository, List<EventData>>(
+        (ref) {
   return EventCalenderRepository();
 });
+
+List refreshEvents(eventsHiveData, {List? updateList}) {
+  final List data = eventsHiveData.keys.map((key) {
+    final item = eventsHiveData.get(key);
+    return {
+      'key': key,
+      'title': item['title'],
+      'info': item['info'],
+      'date': item['date']
+    };
+  }).toList();
+  print(data);
+
+  return data;
+}

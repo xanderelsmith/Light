@@ -1,16 +1,8 @@
 # light
 
-A new Flutter project.
+On-device ML that can generate quiz to form exams, quizes and school questions
 
-## Getting Started
+what if the profile generates the data based on the parse data and a field to edit 
+on add theres a notificATION TO ADD THEM
+THERES AN UPDATE AND CACHE OPTION
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.

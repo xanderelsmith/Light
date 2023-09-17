@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../services/db_services/api_services.dart';
+import '../../services/auth.dart';
 import '../../services/styles.dart';
 
 class ResetPassword extends HookConsumerWidget {
@@ -108,7 +108,7 @@ class ResetPassword extends HookConsumerWidget {
                       style: ElevatedButton.styleFrom(
                           fixedSize: Size(screensize.width / 2.3, 50)),
                       onPressed: () async {
-                        await ApiService.dopasswordReset(
+                        await Authentication.dopasswordReset(
                             useremail: emailcontroller.text.trim());
                         showDialog(
                             context: context,

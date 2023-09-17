@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:light/models/calendermodels/event_data_model.dart";
+import "package:light/models/notifications.dart";
 import "package:light/utils/savedatedialog.dart";
 
 void createAnEvent(BuildContext context, DateTime dateTime) {
@@ -28,7 +29,7 @@ const List boldColors = [
   Colors.blueGrey,
 ];
 
-void dateSorter(List<EventData> data) {
+void eventDateSorter(List<EventData> data) {
   data.sort((a, b) {
     return a.date.day.compareTo(b.date.day);
   });
@@ -37,5 +38,17 @@ void dateSorter(List<EventData> data) {
   });
   data.sort((a, b) {
     return a.date.year.compareTo(b.date.year);
+  });
+}
+
+void notificationsDateSorter(List<ActiveNotification> data) {
+  data.sort((a, b) {
+    return a.createdDate.day.compareTo(b.createdDate.day);
+  });
+  data.sort((a, b) {
+    return a.createdDate.month.compareTo(b.createdDate.month);
+  });
+  data.sort((a, b) {
+    return a.createdDate.year.compareTo(b.createdDate.year);
   });
 }

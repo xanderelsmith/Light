@@ -26,7 +26,7 @@ class HomeDashboard extends HookConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  DesktopTabBarName(tabname: 'Students', onTap: () {}),
+                  DesktopTabBarName(tabname: 'Collaborators', onTap: () {}),
                   Expanded(
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,

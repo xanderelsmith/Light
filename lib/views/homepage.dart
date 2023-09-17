@@ -4,7 +4,7 @@ import 'package:light/enums/PagesEnum.dart';
 import 'package:light/notifiers/pagination_notifiers.dart';
 import 'package:light/styledWidget/calenderSideScreen.dart';
 import 'package:light/views/dashboards/dashboard.dart';
-import 'package:light/views/notifications.dart';
+import 'package:light/views/notifications_view.dart';
 import 'package:light/views/viewteachersdetails.dart';
 import 'package:light/views/resource_inventory.dart';
 import '../styledWidget/drawer.dart';
@@ -63,10 +63,10 @@ class MainHomePage extends StatelessWidget {
                   dashboard: const HomeDashboard(),
                   management: const WardsManagerScreen(),
                   courseresources: const ResourceInventory(),
-                  notification: const ScheduleScreen(),
+                  notification: const ActiveNotificationscreen(),
                 ),
               )),
-          const SizedBox(width: 300, child: CalenderColumn())
+          screensize.width > 900 ? const CalenderColumn() : const SizedBox()
         ],
       ),
     );

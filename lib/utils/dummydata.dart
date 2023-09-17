@@ -1,0 +1,16 @@
+const List<String> dummyData = [
+  'red',
+  'pink',
+  'teal',
+  'cyan',
+  'lightBlue',
+  'green',
+  'purple',
+  'deepPurple',
+  'indigo',
+  'lightGreen',
+  'lime',
+  'orange',
+  'grey',
+  'blueGrey',
+];

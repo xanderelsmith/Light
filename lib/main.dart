@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:light/services/db_services/hivedb_functions.dart';
+import 'package:light/services/storage/hivedb_functions.dart';
 
 import 'package:light/views/homepage.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
@@ -19,7 +19,6 @@ void main() async {
       ParseKeys.keyParseServerUrl,
       clientKey: ParseKeys.kclientKey,
       autoSendSessionId: true);
-  //final bool boolisLoggedIn = await ApiService.hasUserLogged();
   runApp(ProviderScope(
     child: MaterialApp(
         initialRoute: HomePage.id,

@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:light/models/section/sectionmodel.dart';
 import 'package:light/repository/events/eventrepository.dart';
 import 'package:light/repository/section/local_sections_storage_repo.dart';
-import 'package:light/services/db_services/hivedb_functions.dart';
+import 'package:light/services/storage/hivedb_functions.dart';
 import 'package:light/styledWidget/sectiontile.dart';
 import 'package:light/utils/constants.dart';
 import 'package:light/utils/section_dialog.dart';
@@ -75,39 +75,19 @@ class _SectionTabState extends ConsumerState<SectionTab> {
                             );
                           },
                         ))),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                  width: 200,
-                  height: 50,
-                  child: SectionTile(
-                    hasAddButton: true,
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) =>
-                            const SectionDialog(isEdited: false),
-                      );
-                    },
-                    title: 'Add Section',
-                  ),
-                ),
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Constants.primaryColor,
-                      backgroundColor: Constants.secondaryColor,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                    ),
-                    onPressed: () {},
-                    child: const Padding(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
-                        child: Text(
-                          'Sync',
-                        ))),
-              ],
+            SizedBox(
+              width: 200,
+              height: 50,
+              child: SectionTile(
+                hasAddButton: true,
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => const SectionDialog(isEdited: false),
+                  );
+                },
+                title: 'Add Section',
+              ),
             )
           ],
         ),

@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:light/models/section/sectionmodel.dart';
 
-import 'package:light/services/db_services/hivedb_functions.dart';
+import 'package:light/services/storage/hivedb_functions.dart';
 
 class LocalSectionStorageRepo extends StateNotifier<List<Section>> {
   LocalSectionStorageRepo() : super([]);
@@ -33,13 +33,29 @@ class LocalSectionStorageRepo extends StateNotifier<List<Section>> {
     final detailsListValue = state;
     detailsListValue.removeAt(index);
     state = [...detailsListValue];
-    removeToHiveDbData(index: index, modelHiveData: sectionsHiveData);
+    removeToHiveDbData(index: index, hiveData: sectionsHiveData);
 
     log(state.length.toString());
   }
 }
 
 final sectionProvider =
-    StateNotifierProvider<LocalSectionStorageRepo, List<Section>>((ref) {
+    StateNotifierProvider.autoDispose<LocalSectionStorageRepo, List<Section>>(
+        (ref) {
   return LocalSectionStorageRepo();
 });
+
+List refreshSections(eventsHiveData, {List? updateList}) {
+  final List data = eventsHiveData.keys.map((key) {
+    final item = eventsHiveData.get(key);
+    return {
+      'key': key,
+      'name': item['name'],
+      'description': item['description'],
+      'createdDate': item['createdDate']
+    };
+  }).toList();
+  print(data);
+
+  return data;
+}
