@@ -10,7 +10,7 @@ class Student {
   final String name;
   final String objectId;
   final ParseObject user;
-  final String section;
+  final int section;
 
   Map toJson() => {
         'name': name,

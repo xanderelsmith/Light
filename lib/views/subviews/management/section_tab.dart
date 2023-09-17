@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:light/models/section/sectionmodel.dart';
 import 'package:light/repository/events/eventrepository.dart';
-import 'package:light/repository/section/local_sections_storage_repo.dart';
+import 'package:light/repository/section/sections_repo.dart';
 import 'package:light/services/storage/hivedb_functions.dart';
 import 'package:light/styledWidget/sectiontile.dart';
 import 'package:light/utils/constants.dart';

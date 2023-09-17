@@ -11,7 +11,7 @@ class WardsManagerScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final studentsData = ref.watch(studentsFutureProvider);
+    
     return Scaffold(
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {},
@@ -23,7 +23,7 @@ class WardsManagerScreen extends ConsumerWidget {
             children: [
               const Expanded(flex: 3, child: SectionTab()),
               Expanded(
-                  flex: 7, child: AllStudentsTab(studentsData: studentsData)),
+                  flex: 7, child: AllStudentsTab()),
             ],
           ),
         ));

@@ -108,7 +108,7 @@ class _NotificationsDialogState extends ConsumerState<NotificationsDialog> {
                   }
                   Navigator.pop(context);
                   if (kDebugMode) {
-                    print(activenotification.title);
+                    print(activenotification.createdDate);
                   }
                 },
               ),

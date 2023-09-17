@@ -8,10 +8,10 @@ class StudentRepository<Students> {
     List<ParseObject> students = await _userFetchServices.fetchStudents();
     return students
         .map((e) => Student(
-            user: e['user'],
-            name: e['name'],
+            user: e,
+            name: e['username'],
             objectId: e['objectId'],
-            section: e['section']))
+            section: e['level'] ?? 12))
         .toList();
   }
 }

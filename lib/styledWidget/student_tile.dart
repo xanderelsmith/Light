@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:light/models/student/student.dart';
 import 'package:light/styledWidget/specialtextfield.dart';
 import 'package:light/utils/dummydata.dart';
 import 'package:light/views/widgets/tabbar.dart';
@@ -8,19 +9,20 @@ class StudentGenderTab extends ConsumerStatefulWidget {
   const StudentGenderTab({
     super.key,
     required this.tableName,
+    required this.students,
   });
   final String tableName;
-
+  final List<Student> students;
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
       _StudentGenderTabState();
 }
 
 class _StudentGenderTabState extends ConsumerState<StudentGenderTab> {
-  List<String> newOrderedList = [];
+  List<Student> newOrderedList = [];
   @override
   void initState() {
-    newOrderedList = dummyData;
+    newOrderedList = widget.students;
     super.initState();
   }
 
@@ -45,14 +47,14 @@ class _StudentGenderTabState extends ConsumerState<StudentGenderTab> {
               child: SpecialTextfield(
                   onChanged: (p0) {
                     setState(() {
-                      newOrderedList = dummyData
-                          .where((String element) => element
+                      newOrderedList = widget.students
+                          .where((element) => element.name
                               .toLowerCase()
                               .characters
                               .containsAll(p0.characters.toLowerCase()))
                           .toList();
                       if (p0.isEmpty) {
-                        newOrderedList = dummyData;
+                        newOrderedList = widget.students;
                       }
                     });
                   },

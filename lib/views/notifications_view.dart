@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:light/models/notifications.dart';
 import 'package:light/notifiers/notifications_repo.dart';
 import 'package:light/services/storage/hivedb_functions.dart';
@@ -10,7 +11,6 @@ import 'package:light/views/widgets/tabbar.dart';
 
 class ActiveNotificationscreen extends ConsumerStatefulWidget {
   const ActiveNotificationscreen({super.key});
-
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
       _ActiveNotificationscreenState();
@@ -79,15 +79,34 @@ class _ActiveNotificationscreenState
                                     color: Colors.purpleAccent),
                               )),
                             ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(notifications[index].title),
-                                Text(notifications[index].description,
-                                    style: Constants.defaultTextStyle),
-                              ],
-                            )
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(notifications[index].title),
+                                  Text(
+                                    notifications[index].description,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: Constants.defaultTextStyle.copyWith(
+                                      color: Colors.blue,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                                width: 80,
+                                child: Text(
+                                  DateFormat.MEd().format(
+                                    notifications[index].createdDate,
+                                  ),
+                                  style: Constants.defaultTextStyle.copyWith(
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ))
                           ],
                         ),
                       ))))
